@@ -22,8 +22,33 @@
 
         <!-- display output -->
 
-        <textarea readonly class="log">
+        <textarea readonly class="log"></textarea>
 
-        </textarea>
+        <script>
+        // grab relevant elements
+        const btnSuccess = document.getElementById("success")
+        const btnError = document.getElementById("error")
+        const btnAbort = document.getElementById("abort")
+
+        const log = document.querySelector("textarea")
+
+        // add event listeners
+
+        function addListeners(xhr){
+            // loadstart fires when a request  has started to load data
+            xhr.addEventListener("loadstart", handleEvent)
+            // fires when completes
+            xhr.addEventListener("load", handleEvent)
+            // fires when request has completed after load or unsuccessfully after abort or error
+            xhr.addEventListener("loadend", handleEvent)
+            // progress (handled differently by different browsers)
+            xhr.addEventListener("progess", handleEvent)
+            // error event
+            xhr.addEventListener("error", handleEvent)
+            // abort
+            xhr.addEventListener("abort", handleEvent)
+
+        }
+        </script>
     </body>
 </html>
