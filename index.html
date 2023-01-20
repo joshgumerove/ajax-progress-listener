@@ -42,13 +42,42 @@
             // fires when request has completed after load or unsuccessfully after abort or error
             xhr.addEventListener("loadend", handleEvent)
             // progress (handled differently by different browsers)
-            xhr.addEventListener("progess", handleEvent)
+            xhr.addEventListener("progress", handleEvent)
             // error event
             xhr.addEventListener("error", handleEvent)
             // abort
             xhr.addEventListener("abort", handleEvent)
 
         }
+
+        function handleEvent(e){
+            log.textContent = log.textContent + `${e.type}: ${e.loaded} bytes transferred\n`
+        }
+
+        function runXHR(url){
+            log.textContent = ""
+
+            const xhr = new XMLHttpRequest()
+            addListeners(xhr)
+            xhr.open("GET", url)
+            xhr.send()
+
+            return xhr
+        }
+
+        // trigger ajax request
+        btnSuccess.addEventListener("click", () => {
+            runXHR('http://openlibrary.org/search.json?q=the+lord+of+the+rings')
+        })
+
+        btnError.addEventListener("click", () => {
+            runXHR('http://i-am-fake')
+        })
+
+        btnAbort.addEventListener("click", () => {
+            runXHR('http://openlibrary.org/search.json?q=the+lord+of+the+rings').abort()
+        })
+
         </script>
     </body>
 </html>
